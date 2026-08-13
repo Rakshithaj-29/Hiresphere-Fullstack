@@ -62,6 +62,10 @@ router.post("/", authMiddleware, async (req, res) => {
 
 router.get("/", authMiddleware, async (req, res) => {
     try {
+        const { search = "" } = req.query;
+
+        const searchTerm = `%${search.trim()}%`;
+
         const result = await pool.query(
             `SELECT
                 id,
@@ -73,8 +77,13 @@ router.get("/", authMiddleware, async (req, res) => {
                 saved_at
              FROM saved_jobs
              WHERE user_id = $1
+             AND (
+                job_title ILIKE $2
+                OR company_name ILIKE $2
+                OR job_location ILIKE $2
+             )
              ORDER BY saved_at DESC`,
-            [req.user.id]
+            [req.user.id, searchTerm]
         );
 
         res.json({
@@ -89,7 +98,6 @@ router.get("/", authMiddleware, async (req, res) => {
         });
     }
 });
-
 router.delete("/:externalJobId", authMiddleware, async (req, res) => {
     try {
         const { externalJobId } = req.params;

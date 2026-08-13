@@ -8,7 +8,21 @@ function AdminDashboard() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
+  // debounce
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  // server-side search + status filter
   useEffect(() => {
     const fetchApplications = async () => {
       const token = localStorage.getItem("token");
@@ -19,9 +33,16 @@ function AdminDashboard() {
       }
 
       try {
+        setLoading(true);
+        setError("");
+
         const response = await axios.get(
           "http://localhost:5000/api/admin/applications",
           {
+            params: {
+              search: debouncedSearch.trim(),
+              status: statusFilter,
+            },
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -46,18 +67,20 @@ function AdminDashboard() {
     };
 
     fetchApplications();
-  }, [navigate]);
+  }, [debouncedSearch, statusFilter, navigate]);
 
   const countStatus = (status) =>
     applications.filter((app) => app.status === status).length;
-  const [selectedApplication,setSelectedApplication]=useState(null);
-  if (loading) {
-    return (
-      <div className="flex min-h-[70vh] items-center justify-center">
-        <p className="text-slate-500">Loading admin dashboard...</p>
-      </div>
-    );
-  }
+
+
+ 
+  // if (loading) {
+  //   return (
+  //     <div className="flex min-h-[70vh] items-center justify-center">
+  //       <p className="text-slate-500">Loading admin dashboard...</p>
+  //     </div>
+  //   );
+  // }
   
   const updateStatus = async (applicationId, newStatus) => {
   const token = localStorage.getItem("token");
@@ -128,6 +151,8 @@ const viewResume = async (applicationId) => {
     );
   }
 };
+
+
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -217,6 +242,29 @@ const viewResume = async (applicationId) => {
                 <h2 className="text-xl font-bold text-slate-900">
                   Applications
                 </h2>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+  <input
+    type="text"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    placeholder="Search candidate, job, company or location..."
+    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:flex-1"
+  />
+
+  <select
+    value={statusFilter}
+    onChange={(e) => setStatusFilter(e.target.value)}
+    className="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+  >
+    <option value="All">All Status</option>
+    <option value="Applied">Applied</option>
+    <option value="Under Review">Under Review</option>
+    <option value="Shortlisted">Shortlisted</option>
+    <option value="Selected">Selected</option>
+    <option value="Rejected">Rejected</option>
+  </select>
+</div>
 
                 <p className="mt-1 text-sm text-slate-500">
                   All candidate applications submitted through HireSphere.

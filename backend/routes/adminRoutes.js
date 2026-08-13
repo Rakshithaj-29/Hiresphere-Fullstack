@@ -6,59 +6,93 @@ const adminMiddleware = require("../middleware/adminMiddleware");
 const router = express.Router();
 
 router.get(
-    "/applications",
-    authMiddleware,
-    adminMiddleware,
-    async (req, res) => {
-        try {
-            const result = await pool.query(
-                `SELECT
-                    a.id,
-                    a.user_id,
-                    u.name AS candidate_name,
-                    u.email AS candidate_email,
-                    u.phone AS candidate_phone,
-                    a.external_job_id,
-                    a.job_source,
-                    a.job_title,
-                    a.company_name,
-                    a.job_location,
-                    a.qualification,
-                    a.specialization,
-                    a.university,
-                    a.graduation_year,
-                    a.work_status,
-                    a.experience_years,
-                    a.current_job_title,
-                    a.current_company,
-                    a.skills,
-                    a.expected_salary,
-                    a.notice_period,
-                    a.work_preference,
-                    a.resume_filename,
-                    a.cover_letter,
-                    a.status,
-                    a.applied_at
-                 FROM applications a
-                 INNER JOIN users u
-                    ON a.user_id = u.id
-                 ORDER BY a.applied_at DESC`
-            );
+  "/applications",
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const { search = "", status = "All" } = req.query;
 
-            res.json({
-                applications: result.rows
-            });
+      const searchTerm = `%${search.trim()}%`;
 
-        } catch (error) {
-            console.error("Admin applications error:", error);
+      const allowedStatuses = [
+        "All",
+        "Applied",
+        "Under Review",
+        "Shortlisted",
+        "Selected",
+        "Rejected",
+      ];
 
-            res.status(500).json({
-                message: "Failed to fetch applications"
-            });
-        }
+      if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({
+          message: "Invalid status filter",
+        });
+      }
+
+      let query = `
+        SELECT
+          a.id,
+          a.user_id,
+          u.name AS candidate_name,
+          u.email AS candidate_email,
+          u.phone AS candidate_phone,
+          a.external_job_id,
+          a.job_source,
+          a.job_title,
+          a.company_name,
+          a.job_location,
+          a.qualification,
+          a.specialization,
+          a.university,
+          a.graduation_year,
+          a.work_status,
+          a.experience_years,
+          a.current_job_title,
+          a.current_company,
+          a.skills,
+          a.expected_salary,
+          a.notice_period,
+          a.work_preference,
+          a.resume_filename,
+          a.cover_letter,
+          a.status,
+          a.applied_at
+        FROM applications a
+        INNER JOIN users u
+          ON a.user_id = u.id
+        WHERE (
+          u.name ILIKE $1
+          OR u.email ILIKE $1
+          OR a.job_title ILIKE $1
+          OR a.company_name ILIKE $1
+          OR a.job_location ILIKE $1
+        )
+      `;
+
+      const values = [searchTerm];
+
+      if (status !== "All") {
+        query += ` AND a.status = $2`;
+        values.push(status);
+      }
+
+      query += ` ORDER BY a.applied_at DESC`;
+
+      const result = await pool.query(query, values);
+
+      res.json({
+        applications: result.rows,
+      });
+    } catch (error) {
+      console.error("Admin applications error:", error);
+
+      res.status(500).json({
+        message: "Failed to fetch applications",
+      });
     }
+  }
 );
-
 router.patch(
     "/applications/:id/status",
     authMiddleware,
