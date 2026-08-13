@@ -35,20 +35,24 @@ function Register() {
     try {
       setLoading(true);
 
-      await axios.post("http://localhost:5000/api/auth/register", {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-      });
+      await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+        }
+      );
 
       alert("Registration successful!");
       navigate("/login");
-
     } catch (err) {
+      console.error("Registration error:", err);
+
       setError(
         err.response?.data?.message ||
-        "Registration failed. Please try again."
+          "Registration failed. Please try again."
       );
     } finally {
       setLoading(false);
@@ -56,104 +60,167 @@ function Register() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-slate-50 px-4 py-10">
+      <div className="w-full max-w-2xl">
 
-        <div className="auth-header">
-          <p>JOIN HireSphere</p>
-          <h1>Create your account</h1>
-          <span>
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <p className="text-xs font-bold tracking-[0.2em] text-blue-600">
+            JOIN HIRESPHERE
+          </p>
+
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            Create your account
+          </h1>
+
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500">
             Start discovering opportunities that match your career.
-          </span>
+          </p>
         </div>
 
-        {error && (
-          <div className="auth-error">
-            {error}
-          </div>
-        )}
+        {/* Card */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 
-        <form onSubmit={handleSubmit}>
+          {/* Error */}
+          {error && (
+            <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+              {error}
+            </div>
+          )}
 
-          <div className="form-group">
-            <label>Full Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your full name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
 
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            {/* Name */}
+            <div>
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-semibold text-slate-700"
+              >
+                Full Name
+              </label>
 
-          <div className="form-group">
-            <label>Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-row">
-
-            <div className="form-group">
-              <label>Password</label>
               <input
-                type="password"
-                name="password"
-                placeholder="Create password"
-                value={formData.password}
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Enter your full name"
+                value={formData.name}
                 onChange={handleChange}
                 required
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
-            <div className="form-group">
-              <label>Confirm Password</label>
+            {/* Email */}
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-semibold text-slate-700"
+              >
+                Email
+              </label>
+
               <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm password"
-                value={formData.confirmPassword}
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
                 onChange={handleChange}
                 required
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
+            {/* Phone */}
+            <div>
+              <label
+                htmlFor="phone"
+                className="mb-2 block text-sm font-semibold text-slate-700"
+              >
+                Phone Number
+              </label>
+
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                placeholder="Enter your phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+
+            {/* Passwords */}
+            <div className="grid gap-5 sm:grid-cols-2">
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-sm font-semibold text-slate-700"
+                >
+                  Password
+                </label>
+
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Create password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="mb-2 block text-sm font-semibold text-slate-700"
+                >
+                  Confirm Password
+                </label>
+
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                />
+              </div>
+
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-lg bg-blue-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {loading ? "Creating Account..." : "Create Account"}
+            </button>
+
+          </form>
+
+          {/* Footer */}
+          <div className="mt-6 text-center text-sm text-slate-500">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="font-semibold text-blue-600 hover:text-blue-700"
+            >
+              Login
+            </Link>
           </div>
 
-          <button
-            type="submit"
-            className="auth-submit"
-            disabled={loading}
-          >
-            {loading ? "Creating Account..." : "Create Account"}
-          </button>
-
-        </form>
-
-        <div className="auth-footer">
-          Already have an account?
-          <Link to="/login"> Login</Link>
         </div>
-
       </div>
     </div>
   );

@@ -9,6 +9,9 @@ import JobDetails from "./pages/JobDetails";
 import Apply from "./pages/Apply";
 import Applications from "./pages/Applications";
 import SavedJobs from "./pages/SavedJobs";
+import AdminDashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 function App() {
   return (
     <BrowserRouter>
@@ -22,9 +25,13 @@ function App() {
         <Route path="/login"element={<Login/>}/>
         <Route path="/jobs"element={<Jobs/>}/>
         <Route path="/jobs/:id"element={<JobDetails/>}/>
-        <Route path="/apply"element={<Apply/>}/>
-        <Route path="/applications/my"element={<Applications/>}/>
-        <Route path="/saved-jobs" element={<SavedJobs/>}/>
+        <Route path="/apply"element={<ProtectedRoute><Apply/></ProtectedRoute>}/>
+       <Route path="/applications"element={<ProtectedRoute><Applications /></ProtectedRoute>}/>
+
+        <Route path="/saved-jobs" element={<ProtectedRoute><SavedJobs/></ProtectedRoute>}/>
+        <Route path="/admin"element={<ProtectedRoute><AdminDashboard/></ProtectedRoute>}/>
+        
+
       </Routes>
 
     </BrowserRouter>
