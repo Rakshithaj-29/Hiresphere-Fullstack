@@ -11,7 +11,8 @@ router.post("/", authMiddleware, async (req, res) => {
             external_job_id,
             job_title,
             company_name,
-            job_location
+            job_location,
+            job_description
         } = req.body;
 
         if (!external_job_id || !job_title) {
@@ -27,16 +28,18 @@ router.post("/", authMiddleware, async (req, res) => {
                 job_source,
                 job_title,
                 company_name,
-                job_location
+                job_location,
+                job_description
             )
-            VALUES ($1, $2, 'adzuna', $3, $4, $5)
-            RETURNING id, external_job_id, job_title, company_name, job_location, saved_at`,
+            VALUES ($1, $2, 'adzuna', $3, $4, $5,$6)
+            RETURNING id, external_job_id, job_title, company_name, job_location,job_description,saved_at`,
             [
                 req.user.id,
                 external_job_id,
                 job_title,
                 company_name || null,
-                job_location || null
+                job_location || null,
+                job_description|| null
             ]
         );
 
@@ -64,7 +67,29 @@ router.get("/", authMiddleware, async (req, res) => {
     try {
         const { search = "" } = req.query;
 
+        const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
+        const limit = Math.min(
+            Math.max(parseInt(req.query.limit, 10) || 9, 1),
+            50
+        );
+        const offset = (page - 1) * limit;
+
         const searchTerm = `%${search.trim()}%`;
+
+        const countResult = await pool.query(
+            `SELECT COUNT(*)::int AS total
+             FROM saved_jobs
+             WHERE user_id = $1
+             AND (
+                job_title ILIKE $2
+                OR company_name ILIKE $2
+                OR job_location ILIKE $2
+             )`,
+            [req.user.id, searchTerm]
+        );
+
+        const total = countResult.rows[0].total;
+        const totalPages = Math.max(Math.ceil(total / limit), 1);
 
         const result = await pool.query(
             `SELECT
@@ -74,6 +99,7 @@ router.get("/", authMiddleware, async (req, res) => {
                 job_title,
                 company_name,
                 job_location,
+                job_description,
                 saved_at
              FROM saved_jobs
              WHERE user_id = $1
@@ -82,12 +108,16 @@ router.get("/", authMiddleware, async (req, res) => {
                 OR company_name ILIKE $2
                 OR job_location ILIKE $2
              )
-             ORDER BY saved_at DESC`,
-            [req.user.id, searchTerm]
+             ORDER BY saved_at DESC
+             LIMIT $3 OFFSET $4`,
+            [req.user.id, searchTerm, limit, offset]
         );
 
         res.json({
-            savedJobs: result.rows
+            savedJobs: result.rows,
+            total,
+            totalPages,
+            page
         });
 
     } catch (error) {
@@ -130,5 +160,3 @@ router.delete("/:externalJobId", authMiddleware, async (req, res) => {
 });
 
 module.exports = router;
-
-module.exports=router;

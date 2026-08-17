@@ -12,10 +12,15 @@ function AdminDashboard() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [selectedApplication, setSelectedApplication] = useState(null);
-
+  
+const APPLICATIONS_PER_PAGE = 10;
+const [page, setPage] = useState(1);
+const [totalPages, setTotalPages] = useState(1);
+const [totalApplications, setTotalApplications] = useState(0);
   // debounce
   useEffect(() => {
     const timer = setTimeout(() => {
+      setPage(1);
       setDebouncedSearch(search);
     }, 400);
 
@@ -42,6 +47,8 @@ function AdminDashboard() {
             params: {
               search: debouncedSearch.trim(),
               status: statusFilter,
+              page,
+              limit:APPLICATIONS_PER_PAGE
             },
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,6 +57,8 @@ function AdminDashboard() {
         );
 
         setApplications(response.data.applications || []);
+        setTotalApplications(response.data.total || 0);
+        setTotalPages(response.data.totalPages || 1);
       } catch (err) {
         console.error("Admin applications error:", err);
 
@@ -67,7 +76,7 @@ function AdminDashboard() {
     };
 
     fetchApplications();
-  }, [debouncedSearch, statusFilter, navigate]);
+  }, [debouncedSearch, statusFilter, page,navigate]);
 
   const countStatus = (status) =>
     applications.filter((app) => app.status === status).length;
@@ -152,6 +161,38 @@ const viewResume = async (applicationId) => {
   }
 };
 
+const removeApplication = async (applicationId) => {
+  const token = localStorage.getItem("token");
+
+  const confirmed = window.confirm(
+    "Are you sure you want to remove this application?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    await axios.delete(
+      `http://localhost:5000/api/admin/applications/${applicationId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setApplications((previous) =>
+      previous.filter((app) => app.id !== applicationId)
+    );
+
+  } catch (error) {
+    console.error("Remove application error:", error);
+
+    setError(
+      error.response?.data?.message ||
+      "Failed to remove application."
+    );
+  }
+};
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
@@ -254,7 +295,10 @@ const viewResume = async (applicationId) => {
 
   <select
     value={statusFilter}
-    onChange={(e) => setStatusFilter(e.target.value)}
+    onChange={(e) => {
+    setStatusFilter(e.target.value);
+    setPage(1);
+  }}
     className="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
   >
     <option value="All">All Status</option>
@@ -276,57 +320,54 @@ const viewResume = async (applicationId) => {
                   No applications found.
                 </div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="min-w-full text-left text-sm">
+               <div className="max-h-[500px] overflow-auto rounded-xl border border-slate-200">
+  <table className="min-w-full text-left text-sm">
+    <thead className="sticky top-0 z-20 bg-slate-100 text-xs uppercase tracking-wider text-slate-500">
+      <tr>
+        <th className="whitespace-nowrap px-6 py-4">Candidate</th>
+        <th className="whitespace-nowrap px-6 py-4">Job</th>
+        <th className="whitespace-nowrap px-6 py-4">Company</th>
+        <th className="whitespace-nowrap px-6 py-4">Location</th>
+        <th className="whitespace-nowrap px-6 py-4">Qualification</th>
+        <th className="whitespace-nowrap px-6 py-4">Status</th>
+        <th className="whitespace-nowrap px-6 py-4">Applied On</th>
+        <th className="whitespace-nowrap px-6 py-4">Action</th>
+      </tr>
+    </thead>
 
-                    <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-                      <tr>
-                        <th className="px-6 py-4">Candidate</th>
-                        <th className="px-6 py-4">Job</th>
-                        <th className="px-6 py-4">Company</th>
-                        <th className="px-6 py-4">Location</th>
-                        <th className="px-6 py-4">Qualification</th>
-                        <th className="px-6 py-4">Status</th>
-                        <th className="px-6 py-4">Applied On</th>
-                        <th className="px-6 py-4">Action</th>
-                      </tr>
-                    </thead>
+    <tbody className="divide-y divide-slate-100 bg-white">
+      {applications.map((application) => (
+        <tr
+          key={application.id}
+          className="hover:bg-slate-50"
+        >
+          <td className="px-6 py-4">
+            <div className="font-semibold text-slate-900">
+              {application.candidate_name}
+            </div>
+            <div className="text-xs text-slate-500">
+              {application.candidate_email}
+            </div>
+          </td>
 
-                    <tbody className="divide-y divide-slate-100">
+          <td className="whitespace-nowrap px-6 py-4 font-medium text-slate-700">
+            {application.job_title}
+          </td>
 
-                      {applications.map((application) => (
-                        <tr
-                          key={application.id}
-                          className="hover:bg-slate-50"
-                        >
-                          <td className="px-6 py-4">
-                            <div className="font-semibold text-slate-900">
-                              {application.candidate_name}
-                            </div>
+          <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+            {application.company_name || "—"}
+          </td>
 
-                            <div className="text-xs text-slate-500">
-                              {application.candidate_email}
-                            </div>
-                          </td>
+          <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+            {application.job_location || "—"}
+          </td>
 
-                          <td className="px-6 py-4 font-medium text-slate-700">
-                            {application.job_title}
-                          </td>
+          <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+            {application.qualification}
+          </td>
 
-                          <td className="px-6 py-4 text-slate-600">
-                            {application.company_name || "—"}
-                          </td>
-
-                          <td className="px-6 py-4 text-slate-600">
-                            {application.job_location || "—"}
-                          </td>
-
-                          <td className="px-6 py-4 text-slate-600">
-                            {application.qualification}
-                          </td>
-
-                          <td className="px-6 py-4">
-                                                            <select
+          <td className="px-6 py-4">
+            <select
                                   value={application.status}
                                   onChange={(e) =>
                                     updateStatus(application.id, e.target.value)
@@ -339,26 +380,36 @@ const viewResume = async (applicationId) => {
                                   <option value="Selected">Selected</option>
                                   <option value="Rejected">Rejected</option>
                                 </select>
-                                                          </td>
+                                            
+          </td>
 
-                          <td className="px-6 py-4 text-slate-500">
-                            {new Date(
-                              application.applied_at
-                            ).toLocaleDateString()}
-                          </td>
-                          <td className="px-6 py-4">
-                          <button
-                            onClick={() => setSelectedApplication(application)}
-                            className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-                          >
-                            View
-                          </button>
-                        </td>
+          <td className="whitespace-nowrap px-6 py-4 text-slate-500">
+            {new Date(application.applied_at).toLocaleDateString()}
+          </td>
 
-                        </tr>
-                      ))}
+         <td className="px-6 py-4">
+  <div className="flex gap-2">
+    <button
+      onClick={() => setSelectedApplication(application)}
+      className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+    >
+      View
+    </button>
 
-                      {selectedApplication && (
+    <button
+      onClick={() => removeApplication(application.id)}
+      className="rounded-lg border border-red-200 px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+    >
+      Remove
+    </button>
+  </div>
+</td>
+        </tr>
+        
+
+        
+      ))}
+      {selectedApplication && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
     <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white">
 
@@ -551,10 +602,57 @@ const viewResume = async (applicationId) => {
   </div>
 )}
 
-                    </tbody>
+    </tbody>
+    
+  </table>
+  <div className="flex flex-col gap-3 border-t border-slate-200 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
 
-                  </table>
-                </div>
+    <p className="text-sm text-slate-500">
+        Showing{" "}
+        <span className="font-semibold text-slate-700">
+            {totalApplications === 0
+                ? 0
+                : (page - 1) * APPLICATIONS_PER_PAGE + 1}
+        </span>
+        {" - "}
+        <span className="font-semibold text-slate-700">
+            {Math.min(
+                page * APPLICATIONS_PER_PAGE,
+                totalApplications
+            )}
+        </span>
+        {" of "}
+        <span className="font-semibold text-slate-700">
+            {totalApplications}
+        </span>{" "}
+        applications
+    </p>
+
+    <div className="flex gap-2">
+
+        <button
+            onClick={() => setPage((p) => p - 1)}
+            disabled={page === 1 || loading}
+            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+            ← Previous
+        </button>
+
+        <span className="flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+            Page {page} of {totalPages}
+        </span>
+
+        <button
+            onClick={() => setPage((p) => p + 1)}
+            disabled={page === totalPages || loading}
+            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
+        >
+            Next →
+        </button>
+
+    </div>
+</div>
+</div>
               )}
 
             </div>

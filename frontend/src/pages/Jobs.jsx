@@ -8,73 +8,63 @@ function Jobs() {
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
 
+  // const[searchKeyword,setSearchKeyword]=useState("");
+  // const[searchLocation,setSearchLoaction]=useState("");
+
   const [jobs, setJobs] = useState([]);
   const [savedJobs, setSavedJobs] = useState(new Set());
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchSavedJobs = async () => {
-      const token = localStorage.getItem("token");
+  const [page,setPage]=useState(1);
+  const[totalPages,setTotalPages]=useState(1);
+  const [totalJobs,setTotalJobs]=useState(0);
+  const JOBS_PER_PAGE=15;
 
-      if (!token) return;
+  const searchJobs = async (e, selectedPage = 1) => {
+  e.preventDefault();
 
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/saved-jobs",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  setLoading(true);
+  setError("");
 
-        const ids = response.data.savedJobs.map((job) =>
-          String(job.external_job_id)
-        );
-
-        setSavedJobs(new Set(ids));
-      } catch (error) {
-        console.error("Failed to load saved jobs:", error);
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/jobs",
+      {
+        params: {
+          keyword: keyword.trim(),
+          location: location.trim(),
+          page: selectedPage,
+          limit: JOBS_PER_PAGE,
+        },
       }
-    };
+    );
 
-    fetchSavedJobs();
-  }, []);
+    setJobs(response.data.results || []);
+    setTotalJobs(response.data.count || 0);
+    setTotalPages(response.data.totalPages || 1);
+    setPage(selectedPage);
 
-  const searchJobs = async (e) => {
-    e.preventDefault();
+  } catch (err) {
+    console.error("Job search error:", err);
 
-    setLoading(true);
-    setError("");
+    setError(
+      err.response?.data?.message ||
+        "Unable to load jobs. Please try again."
+    );
 
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/jobs",
-        {
-          params: {
-            keyword: keyword.trim() || "developer",
-            location: location.trim() || "india",
-          },
-        }
-      );
+    setJobs([]);
+    setTotalJobs(0);
+    setTotalPages(1);
+  } finally {
+    setLoading(false);
+  }
+};
 
-      setJobs(response.data.results || []);
-    } catch (err) {
-      console.error("Job search error:", err);
 
-      setError(
-        err.response?.data?.message ||
-          "Unable to load jobs. Please try again."
-      );
 
-      setJobs([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  
   const toggleSaveJob = async (job) => {
     const token = localStorage.getItem("token");
 
@@ -110,6 +100,8 @@ function Jobs() {
             job_title: job.title,
             company_name: job.company?.display_name || "",
             job_location: job.location?.display_name || "",
+            job_description: job.description || "",
+            
           },
           {
             headers: {
@@ -156,38 +148,97 @@ function Jobs() {
             Search job opportunities by title, skills and location.
           </p>
 
-          <form
-            onSubmit={searchJobs}
-            className="mt-8 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm"
+         <form
+  onSubmit={searchJobs}
+  className="mt-8 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-md transition-all duration-200 focus-within:border-blue-300 focus-within:shadow-lg"
+>
+  <div className="flex flex-col gap-2 md:flex-row md:items-center">
+
+    {/* Keyword */}
+    <div className="flex flex-1 items-center rounded-xl bg-slate-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100">
+      <svg
+        className="mr-3 h-5 w-5 shrink-0 text-slate-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+        />
+      </svg>
+
+      <input
+        type="text"
+        placeholder="Job title, skills or keywords"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        className="w-full bg-transparent py-3.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+      />
+    </div>
+
+    {/* Location */}
+    <div className="flex flex-1 items-center rounded-xl bg-slate-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100">
+      <svg
+        className="mr-3 h-5 w-5 shrink-0 text-slate-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"
+        />
+        <circle cx="12" cy="9" r="2.5" />
+      </svg>
+
+      <input
+        type="text"
+        placeholder="Location"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+        className="w-full bg-transparent py-3.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+      />
+    </div>
+
+    {/* Search Button */}
+    <button
+      type="submit"
+      disabled={loading}
+      className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {loading ? (
+        <>
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+          Searching...
+        </>
+      ) : (
+        <>
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <div className="grid gap-3 md:grid-cols-[1.5fr_1fr_auto]">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+            />
+          </svg>
 
-              <input
-                type="text"
-                placeholder="Job title, skills or keywords"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                className="rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-              />
+          Search Jobs
+        </>
+      )}
+    </button>
 
-              <input
-                type="text"
-                placeholder="Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-              />
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {loading ? "Searching..." : "Search Jobs"}
-              </button>
-
-            </div>
-          </form>
+  </div>
+</form>
         </div>
       </section>
 
@@ -320,9 +371,63 @@ function Jobs() {
             </div>
           )}
         </div>
+      {!loading && !error && jobs.length > 0 && (
+  <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    {jobs.map((job) => {
+      // existing job card
+    })}
+  </div>
+)}
+
+{!loading && !error && totalJobs > 0 && (
+  <div className="mt-10 flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+
+    <p className="text-sm text-slate-500">
+      Showing{" "}
+      <span className="font-semibold text-slate-700">
+        {(page - 1) * JOBS_PER_PAGE + 1}
+      </span>
+      {" - "}
+      <span className="font-semibold text-slate-700">
+        {Math.min(page * JOBS_PER_PAGE, totalJobs)}
+      </span>
+      {" of "}
+      <span className="font-semibold text-slate-700">
+        {totalJobs}
+      </span>{" "}
+      jobs
+    </p>
+
+    <div className="flex gap-2">
+    <button
+  onClick={(e) => searchJobs(e, page - 1)}
+  disabled={page === 1 || loading}
+  className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:opacity-40"
+>
+  ← Previous
+</button>
+      
+
+      <span className="flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+        Page {page} of {totalPages}
+      </span>
+
+      <button
+  onClick={(e) => searchJobs(e, page + 1)}
+  disabled={page === totalPages || loading}
+  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40"
+>
+  Next →
+</button>
+
+    </div>
+  </div>
+)}
+
       </section>
     </div>
   );
 }
+
 
 export default Jobs;

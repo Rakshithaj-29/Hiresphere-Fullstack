@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 function Apply() {
   const location = useLocation();
   const navigate = useNavigate();
+  const {user}=useAuth();
 
   const job = location.state?.job;
 
   const [formData, setFormData] = useState({
+    candidate_name: user?.name || "",
+  candidate_email: user?.email || "",
     qualification: "",
     specialization: "",
     university: "",
@@ -129,7 +133,8 @@ function Apply() {
         "job_location",
         job.location?.display_name || ""
       );
-
+      data.append("Name",formData.candidate_name);
+      data.append("email",formData.candidate_email);
       data.append("qualification", formData.qualification);
       data.append("specialization", formData.specialization);
       data.append("university", formData.university);
@@ -203,7 +208,7 @@ function Apply() {
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-3xl">
 
         {/* Back */}
         <Link
@@ -245,10 +250,9 @@ function Apply() {
         )}
 
         <form
-          onSubmit={handleSubmit}
-          className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
-        >
-
+  onSubmit={handleSubmit}
+  className="max-h-[75vh] overflow-y-auto overflow-x-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+>
           {/* Job Information */}
           <section className="border-b border-slate-200 p-6 sm:p-8">
             <div className="mb-6">
@@ -261,7 +265,7 @@ function Apply() {
               </p>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2">
 
               <div>
                 <label className={labelClass}>Job Title</label>
@@ -301,6 +305,55 @@ function Apply() {
             </div>
           </section>
 
+          <section className="border-b border-slate-200 p-6 sm:p-8">
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-slate-900">
+                Personal Details
+              </h2>
+            </div>
+     <div className="grid gap-5 md:grid-cols-2">
+
+  {/* Full Name */}
+  <div>
+    <label
+      htmlFor="candidate_name"
+      className={labelClass}
+    >
+      Full Name
+    </label>
+
+    <input
+      id="candidate_name"
+      type="text"
+      name="candidate_name"
+      value={formData.candidate_name}
+      onChange={handleChange}
+      placeholder="Enter your name"
+      className={inputClass}/>
+  </div>
+
+  {/* Email */}
+  <div>
+    <label
+      htmlFor="candidate_email"
+      className={labelClass}
+    >
+      Email
+    </label>
+
+    <input
+      id="candidate_email"
+      type="email"
+      name="candidate_email"
+      value={formData.candidate_email}
+      onChange={handleChange}
+      placeholder="Enter your email"
+      className={inputClass}/>
+  </div>
+
+</div>
+</section>
+
           {/* Education */}
           <section className="border-b border-slate-200 p-6 sm:p-8">
             <div className="mb-6">
@@ -333,7 +386,7 @@ function Apply() {
                   name="specialization"
                   value={formData.specialization}
                   onChange={handleChange}
-                  placeholder="Computer Applications"
+                  placeholder="Computer Applications,Cyber Security"
                   className={inputClass}
                 />
               </div>
@@ -411,7 +464,7 @@ function Apply() {
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label className={labelClass}>
                   Current Job Title
                 </label>
@@ -437,7 +490,7 @@ function Apply() {
                   placeholder="Optional for freshers"
                   className={inputClass}
                 />
-              </div>
+              </div> */}
             </div>
           </section>
 
@@ -560,7 +613,7 @@ function Apply() {
 
             <textarea
               name="cover_letter"
-              rows="7"
+              rows="4"
               value={formData.cover_letter}
               onChange={handleChange}
               placeholder="Tell the employer why you are interested in this opportunity..."

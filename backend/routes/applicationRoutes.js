@@ -35,13 +35,27 @@ router.post(
     async (req, res) => {
 
         try {
-            console.log("REQ BODY:", req.body);
-            console.log("REQ FILE:", req.file);
+            const userResult = await pool.query(
+  `SELECT name, email
+   FROM users
+   WHERE id = $1`,
+  [req.user.id]
+);
+const {name,email}=userResult.rows[0];
+if (userResult.rows.length === 0) {
+  return res.status(404).json({
+    message: "User not found"
+  });
+}
 
+
+            
             console.log("Authenticated user:", req.user);
             console.log("Uploaded file:", req.file?.originalname);
 
             const {
+                candidate_name,
+                candidate_email,
                 external_job_id,
                 job_title,
                 company_name,
@@ -82,6 +96,8 @@ router.post(
             const result = await pool.query(
                 `INSERT INTO applications (
                     user_id,
+                    candidate_name,
+                    candidate_email,
                     external_job_id,
                     job_source,
                     job_title,
@@ -106,9 +122,9 @@ router.post(
                 VALUES (
                     $1,
                     $2,
-                    'adzuna',
                     $3,
                     $4,
+                    'adzuna',
                     $5,
                     $6,
                     $7,
@@ -124,11 +140,15 @@ router.post(
                     $17,
                     $18,
                     $19,
-                    $20
+                    $20,
+                    $21,
+                    $22
                 )
-                RETURNING id, job_title, company_name, status, applied_at`,
+                RETURNING id,candidate_name,candidate_email,job_title, company_name, status, applied_at`,
                 [
                     req.user.id,
+                    name,
+                    email ,
                     external_job_id,
                     job_title,
                     company_name || null,

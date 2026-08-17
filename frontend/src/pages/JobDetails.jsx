@@ -60,11 +60,22 @@ function JobDetails() {
     );
   }
 
-  const companyName =
-    job.company?.display_name || "Company not disclosed";
+  const savedJob = location.state?.job;
 
-  const jobLocation =
-    job.location?.display_name || "Location not disclosed";
+const companyName =
+  savedJob?.company?.display_name ||
+  savedJob?.company_name ||
+  "Company not disclosed";
+
+const jobLocation =
+  savedJob?.location?.display_name ||
+  savedJob?.job_location ||
+  "Location not disclosed";
+
+const jobTitle =
+  savedJob?.title ||
+  savedJob?.job_title ||
+  "Job details";
 
   const salary =
     job.salary_min || job.salary_max
@@ -78,6 +89,11 @@ function JobDetails() {
             : "—"
         }`
       : "Salary not disclosed";
+
+      const description =
+    job.description ||
+    job.job_description ||
+    "";
 
   const toggleSave = async () => {
     const token = localStorage.getItem("token");
@@ -109,6 +125,7 @@ function JobDetails() {
             job_title: job.title,
             company_name: companyName,
             job_location: jobLocation,
+            job_description:job.description||" ",
           },
           {
             headers: {
@@ -125,7 +142,9 @@ function JobDetails() {
       setLoadingSave(false);
     }
   };
+  
 
+  
   return (
     <div className="min-h-screen bg-slate-50">
 
@@ -213,13 +232,13 @@ function JobDetails() {
             </h2>
 
             <div
-              className="prose prose-slate mt-6 max-w-none text-sm leading-7 text-slate-600"
-              dangerouslySetInnerHTML={{
-                __html:
-                  job.description ||
-                  "<p>No job description available.</p>",
-              }}
-            />
+    className="prose prose-slate mt-6 max-w-none text-sm leading-7 text-slate-600"
+    dangerouslySetInnerHTML={{
+        __html:
+            description ||
+            "<p>No job description available.</p>",
+    }}
+/>
 
           </section>
 

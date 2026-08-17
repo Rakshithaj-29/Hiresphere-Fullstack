@@ -11,9 +11,51 @@ router.get(
   adminMiddleware,
   async (req, res) => {
     try {
-      const { search = "", status = "All" } = req.query;
+      const { 
+        search = "",
+        status = "All",
+        page=1,
+        limit=10 } = req.query;
+    
+       const pageNumber = Math.max(
+        parseInt(page, 10) || 1,
+        1
+      );
+
+      const limitNumber = 10;
+
+      const offset = (pageNumber - 1) * limitNumber;
+
 
       const searchTerm = `%${search.trim()}%`;
+
+      let countQuery = `
+    SELECT COUNT(*) AS total
+    FROM applications a
+    INNER JOIN users u
+        ON a.user_id = u.id
+    WHERE (
+        u.name ILIKE $1
+        OR u.email ILIKE $1
+        OR a.job_title ILIKE $1
+        OR a.company_name ILIKE $1
+        OR a.job_location ILIKE $1
+    )
+`;
+
+const countValues = [searchTerm];
+
+if (status !== "All") {
+    countQuery += ` AND a.status = $2`;
+    countValues.push(status);
+}
+
+const countResult = await pool.query(
+    countQuery,
+    countValues
+);
+
+const total = Number(countResult.rows[0].total);
 
       const allowedStatuses = [
         "All",
@@ -78,11 +120,18 @@ router.get(
       }
 
       query += ` ORDER BY a.applied_at DESC`;
+      query += ` LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
+
+values.push(limitNumber, offset);
 
       const result = await pool.query(query, values);
 
       res.json({
         applications: result.rows,
+        page:pageNumber,
+        limit:limitNumber,
+        total,
+        totalPages:Math.ceil(total/limitNumber)
       });
     } catch (error) {
       console.error("Admin applications error:", error);
@@ -203,6 +252,43 @@ router.get(
             });
         }
     }
+);
+
+
+router.delete(
+  "/applications/:id",
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = await pool.query(
+        `DELETE FROM applications
+         WHERE id = $1
+         RETURNING id, job_title, company_name`,
+        [id]
+      );
+
+      if (result.rows.length === 0) {
+        return res.status(404).json({
+          message: "Application not found"
+        });
+      }
+
+      res.json({
+        message: "Application removed successfully",
+        application: result.rows[0]
+      });
+
+    } catch (error) {
+      console.error("Delete application error:", error);
+
+      res.status(500).json({
+        message: "Failed to remove application"
+      });
+    }
+  }
 );
 
 module.exports = router;
