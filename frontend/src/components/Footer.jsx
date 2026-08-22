@@ -23,9 +23,6 @@ function Footer() {
               <Link to="/jobs" className="text-sm font-medium text-stone-600 hover:text-teal-700">
                 Browse jobs
               </Link>
-              <Link to="/companies" className="text-sm font-medium text-stone-600 hover:text-teal-700">
-                Companies
-              </Link>
               <Link to="/saved-jobs" className="text-sm font-medium text-stone-600 hover:text-teal-700">
                 Saved jobs
               </Link>
@@ -37,7 +34,7 @@ function Footer() {
               ACCOUNT
             </p>
             <div className="mt-4 flex flex-col gap-3">
-              <Link to="/applications/my" className="text-sm font-medium text-stone-600 hover:text-teal-700">
+              <Link to="/applications" className="text-sm font-medium text-stone-600 hover:text-teal-700">
                 My applications
               </Link>
               <Link to="/login" className="text-sm font-medium text-stone-600 hover:text-teal-700">

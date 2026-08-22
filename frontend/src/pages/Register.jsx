@@ -62,26 +62,26 @@ function Register() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-blue-50 via-white to-slate-100 px-4 py-10 sm:px-6">
+    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-teal-50 via-white to-stone-100 px-4 py-10 sm:px-6">
       <div className="mx-auto w-full max-w-2xl">
 
         {/* Header */}
         <div className="mb-7 text-center">
-          <p className="text-xs font-bold tracking-[0.22em] text-blue-600">
+          <p className="text-xs font-bold tracking-[0.22em] text-teal-600">
             JOIN HIRESPHERE
           </p>
 
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
             Create your account
           </h1>
 
-          <p className="mt-3 text-sm text-slate-500">
+          <p className="mt-3 text-sm text-stone-500">
             Start discovering opportunities that match your career.
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50 sm:p-8">
+        <div className="rounded-3xl border border-stone-200 bg-white p-6 shadow-xl shadow-stone-200/50 sm:p-8">
 
           {error && (
             <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
@@ -97,7 +97,7 @@ function Register() {
               <div>
                 <label
                   htmlFor="name"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 block text-sm font-semibold text-stone-700"
                 >
                   Full Name
                 </label>
@@ -110,14 +110,14 @@ function Register() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                  className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 block text-sm font-semibold text-stone-700"
                 >
                   Email
                 </label>
@@ -130,7 +130,7 @@ function Register() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                  className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
                 />
               </div>
 
@@ -140,7 +140,7 @@ function Register() {
             <div>
               <label
                 htmlFor="phone"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-stone-700"
               >
                 Phone Number
               </label>
@@ -153,7 +153,7 @@ function Register() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
               />
             </div>
 
@@ -163,7 +163,7 @@ function Register() {
               <div>
                 <label
                   htmlFor="password"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 block text-sm font-semibold text-stone-700"
                 >
                   Password
                 </label>
@@ -177,13 +177,13 @@ function Register() {
                     value={formData.password}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pr-16 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                    className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 pr-16 text-sm outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
                   />
 
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-blue-600"
+                    className="absolute right-3 top-1/2 -transtone-y-1/2 text-xs font-semibold text-stone-400 hover:text-teal-600"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -193,7 +193,7 @@ function Register() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 block text-sm font-semibold text-stone-700"
                 >
                   Confirm Password
                 </label>
@@ -207,7 +207,7 @@ function Register() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pr-16 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                    className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 pr-16 text-sm outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
                   />
 
                   <button
@@ -215,7 +215,7 @@ function Register() {
                     onClick={() =>
                       setShowConfirmPassword(!showConfirmPassword)
                     }
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-blue-600"
+                    className="absolute right-3 top-1/2 -transtone-y-1/2 text-xs font-semibold text-stone-400 hover:text-teal-600"
                   >
                     {showConfirmPassword ? "Hide" : "Show"}
                   </button>
@@ -228,7 +228,7 @@ function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-xl bg-teal-600 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-teal-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? "Creating Account..." : "Create Account"}
             </button>
@@ -236,11 +236,11 @@ function Register() {
           </form>
 
           {/* Login Link */}
-          <div className="mt-6 text-center text-sm text-slate-500">
+          <div className="mt-6 text-center text-sm text-stone-500">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="font-semibold text-blue-600 hover:text-blue-700"
+              className="font-semibold text-teal-600 hover:text-teal-700"
             >
               Login
             </Link>

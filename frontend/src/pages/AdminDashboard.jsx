@@ -86,7 +86,7 @@ const [totalApplications, setTotalApplications] = useState(0);
   // if (loading) {
   //   return (
   //     <div className="flex min-h-[70vh] items-center justify-center">
-  //       <p className="text-slate-500">Loading admin dashboard...</p>
+  //       <p className="text-stone-500">Loading admin dashboard...</p>
   //     </div>
   //   );
   // }
@@ -195,20 +195,20 @@ const removeApplication = async (applicationId) => {
 };
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-stone-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
         <div className="mb-8">
-          <p className="text-xs font-bold tracking-[0.2em] text-blue-600">
+          <p className="text-xs font-bold tracking-[0.2em] text-teal-600">
             ADMIN PANEL
           </p>
 
-          <h1 className="mt-2 text-3xl font-bold text-slate-900">
+          <h1 className="mt-2 text-3xl font-bold text-stone-900">
             Application Dashboard
           </h1>
 
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-stone-500">
             Review and manage candidate applications.
           </p>
         </div>
@@ -224,28 +224,28 @@ const removeApplication = async (applicationId) => {
           <>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
 
-              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <p className="text-sm text-slate-500">
+              <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+                <p className="text-sm text-stone-500">
                   Total Applications
                 </p>
 
-                <p className="mt-2 text-3xl font-bold text-slate-900">
+                <p className="mt-2 text-3xl font-bold text-stone-900">
                   {applications.length}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <p className="text-sm text-slate-500">
+              <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+                <p className="text-sm text-stone-500">
                   Applied
                 </p>
 
-                <p className="mt-2 text-3xl font-bold text-blue-600">
+                <p className="mt-2 text-3xl font-bold text-teal-600">
                   {countStatus("Applied")}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <p className="text-sm text-slate-500">
+              <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+                <p className="text-sm text-stone-500">
                   Under Review
                 </p>
 
@@ -254,8 +254,8 @@ const removeApplication = async (applicationId) => {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <p className="text-sm text-slate-500">
+              <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+                <p className="text-sm text-stone-500">
                   Shortlisted
                 </p>
 
@@ -264,8 +264,8 @@ const removeApplication = async (applicationId) => {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <p className="text-sm text-slate-500">
+              <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+                <p className="text-sm text-stone-500">
                   Selected
                 </p>
 
@@ -277,10 +277,10 @@ const removeApplication = async (applicationId) => {
             </div>
 
             {/* Applications */}
-            <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="mt-8 overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
 
-              <div className="border-b border-slate-200 px-6 py-5">
-                <h2 className="text-xl font-bold text-slate-900">
+              <div className="border-b border-stone-200 px-6 py-5">
+                <h2 className="text-xl font-bold text-stone-900">
                   Applications
                 </h2>
 
@@ -290,7 +290,7 @@ const removeApplication = async (applicationId) => {
     value={search}
     onChange={(e) => setSearch(e.target.value)}
     placeholder="Search candidate, job, company or location..."
-    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:flex-1"
+    className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 sm:flex-1"
   />
 
   <select
@@ -299,7 +299,7 @@ const removeApplication = async (applicationId) => {
     setStatusFilter(e.target.value);
     setPage(1);
   }}
-    className="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+    className="rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm font-medium text-stone-700 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
   >
     <option value="All">All Status</option>
     <option value="Applied">Applied</option>
@@ -310,19 +310,19 @@ const removeApplication = async (applicationId) => {
   </select>
 </div>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-stone-500">
                   All candidate applications submitted through HireSphere.
                 </p>
               </div>
 
               {applications.length === 0 ? (
-                <div className="p-10 text-center text-slate-500">
+                <div className="p-10 text-center text-stone-500">
                   No applications found.
                 </div>
               ) : (
-               <div className="max-h-[500px] overflow-auto rounded-xl border border-slate-200">
+               <div className="max-h-[500px] overflow-auto rounded-xl border border-stone-200">
   <table className="min-w-full text-left text-sm">
-    <thead className="sticky top-0 z-20 bg-slate-100 text-xs uppercase tracking-wider text-slate-500">
+    <thead className="sticky top-0 z-20 bg-stone-100 text-xs uppercase tracking-wider text-stone-500">
       <tr>
         <th className="whitespace-nowrap px-6 py-4">Candidate</th>
         <th className="whitespace-nowrap px-6 py-4">Job</th>
@@ -335,34 +335,34 @@ const removeApplication = async (applicationId) => {
       </tr>
     </thead>
 
-    <tbody className="divide-y divide-slate-100 bg-white">
+    <tbody className="divide-y divide-stone-100 bg-white">
       {applications.map((application) => (
         <tr
           key={application.id}
-          className="hover:bg-slate-50"
+          className="hover:bg-stone-50"
         >
           <td className="px-6 py-4">
-            <div className="font-semibold text-slate-900">
+            <div className="font-semibold text-stone-900">
               {application.candidate_name}
             </div>
-            <div className="text-xs text-slate-500">
+            <div className="text-xs text-stone-500">
               {application.candidate_email}
             </div>
           </td>
 
-          <td className="whitespace-nowrap px-6 py-4 font-medium text-slate-700">
+          <td className="whitespace-nowrap px-6 py-4 font-medium text-stone-700">
             {application.job_title}
           </td>
 
-          <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+          <td className="whitespace-nowrap px-6 py-4 text-stone-600">
             {application.company_name || "—"}
           </td>
 
-          <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+          <td className="whitespace-nowrap px-6 py-4 text-stone-600">
             {application.job_location || "—"}
           </td>
 
-          <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+          <td className="whitespace-nowrap px-6 py-4 text-stone-600">
             {application.qualification}
           </td>
 
@@ -372,7 +372,7 @@ const removeApplication = async (applicationId) => {
                                   onChange={(e) =>
                                     updateStatus(application.id, e.target.value)
                                   }
-                                  className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:border-blue-500"
+                                  className="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-semibold text-stone-700 outline-none focus:border-teal-500"
                                 >
                                   <option value="Applied">Applied</option>
                                   <option value="Under Review">Under Review</option>
@@ -383,7 +383,7 @@ const removeApplication = async (applicationId) => {
                                             
           </td>
 
-          <td className="whitespace-nowrap px-6 py-4 text-slate-500">
+          <td className="whitespace-nowrap px-6 py-4 text-stone-500">
             {new Date(application.applied_at).toLocaleDateString()}
           </td>
 
@@ -391,7 +391,7 @@ const removeApplication = async (applicationId) => {
   <div className="flex gap-2">
     <button
       onClick={() => setSelectedApplication(application)}
-      className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+      className="rounded-lg border border-stone-300 px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-50"
     >
       View
     </button>
@@ -415,18 +415,18 @@ const removeApplication = async (applicationId) => {
 
       <div className="flex items-center justify-between border-b p-6">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">
+          <h2 className="text-2xl font-bold text-stone-900">
             Candidate Details
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-stone-500">
             Application #{selectedApplication.id}
           </p>
         </div>
 
         <button
           onClick={() => setSelectedApplication(null)}
-          className="text-xl text-slate-400 hover:text-slate-700"
+          className="text-xl text-stone-400 hover:text-stone-700"
         >
           ✕
         </button>
@@ -441,42 +441,42 @@ const removeApplication = async (applicationId) => {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <p className="text-xs text-slate-400">Name</p>
+              <p className="text-xs text-stone-400">Name</p>
               <p className="font-semibold">
                 {selectedApplication.candidate_name}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Email</p>
+              <p className="text-xs text-stone-400">Email</p>
               <p className="font-semibold">
                 {selectedApplication.candidate_email}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Phone</p>
+              <p className="text-xs text-stone-400">Phone</p>
               <p className="font-semibold">
                 {selectedApplication.candidate_phone || "—"}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Qualification</p>
+              <p className="text-xs text-stone-400">Qualification</p>
               <p className="font-semibold">
                 {selectedApplication.qualification}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Specialization</p>
+              <p className="text-xs text-stone-400">Specialization</p>
               <p className="font-semibold">
                 {selectedApplication.specialization || "—"}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">University</p>
+              <p className="text-xs text-stone-400">University</p>
               <p className="font-semibold">
                 {selectedApplication.university || "—"}
               </p>
@@ -491,56 +491,56 @@ const removeApplication = async (applicationId) => {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <p className="text-xs text-slate-400">Work Status</p>
+              <p className="text-xs text-stone-400">Work Status</p>
               <p className="font-semibold">
                 {selectedApplication.work_status}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Experience</p>
+              <p className="text-xs text-stone-400">Experience</p>
               <p className="font-semibold">
                 {selectedApplication.experience_years || 0} years
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Current Job</p>
+              <p className="text-xs text-stone-400">Current Job</p>
               <p className="font-semibold">
                 {selectedApplication.current_job_title || "—"}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Current Company</p>
+              <p className="text-xs text-stone-400">Current Company</p>
               <p className="font-semibold">
                 {selectedApplication.current_company || "—"}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Skills</p>
+              <p className="text-xs text-stone-400">Skills</p>
               <p className="font-semibold">
                 {selectedApplication.skills}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Expected Salary</p>
+              <p className="text-xs text-stone-400">Expected Salary</p>
               <p className="font-semibold">
                 {selectedApplication.expected_salary || "—"}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Notice Period</p>
+              <p className="text-xs text-stone-400">Notice Period</p>
               <p className="font-semibold">
                 {selectedApplication.notice_period || "—"}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-slate-400">Work Preference</p>
+              <p className="text-xs text-stone-400">Work Preference</p>
               <p className="font-semibold">
                 {selectedApplication.work_preference || "—"}
               </p>
@@ -553,12 +553,12 @@ const removeApplication = async (applicationId) => {
             Job Applied For
           </h3>
 
-          <div className="rounded-xl bg-slate-50 p-4">
+          <div className="rounded-xl bg-stone-50 p-4">
             <p className="font-semibold">
               {selectedApplication.job_title}
             </p>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-stone-500">
               {selectedApplication.company_name} •{" "}
               {selectedApplication.job_location}
             </p>
@@ -570,7 +570,7 @@ const removeApplication = async (applicationId) => {
             Cover Letter
           </h3>
 
-          <p className="whitespace-pre-wrap text-sm leading-6 text-slate-600">
+          <p className="whitespace-pre-wrap text-sm leading-6 text-stone-600">
             {selectedApplication.cover_letter || "No cover letter provided."}
           </p>
         </section>
@@ -587,12 +587,12 @@ const removeApplication = async (applicationId) => {
       selectedApplication.resume_filename
     )
   }
-  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+  className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
 >
   View / Download Resume
 </button>
 
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-stone-500">
             {selectedApplication.resume_filename}
           </p>
         </section>
@@ -605,24 +605,24 @@ const removeApplication = async (applicationId) => {
     </tbody>
     
   </table>
-  <div className="flex flex-col gap-3 border-t border-slate-200 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+  <div className="flex flex-col gap-3 border-t border-stone-200 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
 
-    <p className="text-sm text-slate-500">
+    <p className="text-sm text-stone-500">
         Showing{" "}
-        <span className="font-semibold text-slate-700">
+        <span className="font-semibold text-stone-700">
             {totalApplications === 0
                 ? 0
                 : (page - 1) * APPLICATIONS_PER_PAGE + 1}
         </span>
         {" - "}
-        <span className="font-semibold text-slate-700">
+        <span className="font-semibold text-stone-700">
             {Math.min(
                 page * APPLICATIONS_PER_PAGE,
                 totalApplications
             )}
         </span>
         {" of "}
-        <span className="font-semibold text-slate-700">
+        <span className="font-semibold text-stone-700">
             {totalApplications}
         </span>{" "}
         applications
@@ -633,19 +633,19 @@ const removeApplication = async (applicationId) => {
         <button
             onClick={() => setPage((p) => p - 1)}
             disabled={page === 1 || loading}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
             ← Previous
         </button>
 
-        <span className="flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+        <span className="flex items-center rounded-lg bg-stone-100 px-4 py-2 text-sm font-semibold text-stone-700">
             Page {page} of {totalPages}
         </span>
 
         <button
             onClick={() => setPage((p) => p + 1)}
             disabled={page === totalPages || loading}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
         >
             Next →
         </button>

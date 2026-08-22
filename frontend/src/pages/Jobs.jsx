@@ -130,34 +130,34 @@ function Jobs() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-stone-50">
 
       {/* Search Header */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-slate-50 px-4 py-14 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-teal-50 via-white to-stone-50 px-4 py-14 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
 
-          <p className="text-xs font-bold tracking-[0.2em] text-blue-600">
+          <p className="text-xs font-bold tracking-[0.2em] text-teal-600">
             EXPLORE OPPORTUNITIES
           </p>
 
-          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-stone-900 sm:text-5xl">
             Find your next job
           </h1>
 
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-stone-500 sm:text-base">
             Search job opportunities by title, skills and location.
           </p>
 
          <form
   onSubmit={searchJobs}
-  className="mt-8 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-md transition-all duration-200 focus-within:border-blue-300 focus-within:shadow-lg"
+  className="mt-8 rounded-2xl border border-stone-200 bg-white p-2.5 shadow-md transition-all duration-200 focus-within:border-teal-300 focus-within:shadow-lg"
 >
   <div className="flex flex-col gap-2 md:flex-row md:items-center">
 
     {/* Keyword */}
-    <div className="flex flex-1 items-center rounded-xl bg-slate-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100">
+    <div className="flex flex-1 items-center rounded-xl bg-stone-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-teal-100">
       <svg
-        className="mr-3 h-5 w-5 shrink-0 text-slate-400"
+        className="mr-3 h-5 w-5 shrink-0 text-stone-400"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -175,14 +175,14 @@ function Jobs() {
         placeholder="Job title, skills or keywords"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
-        className="w-full bg-transparent py-3.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+        className="w-full bg-transparent py-3.5 text-sm text-stone-800 outline-none placeholder:text-stone-400"
       />
     </div>
 
     {/* Location */}
-    <div className="flex flex-1 items-center rounded-xl bg-slate-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100">
+    <div className="flex flex-1 items-center rounded-xl bg-stone-50 px-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-teal-100">
       <svg
-        className="mr-3 h-5 w-5 shrink-0 text-slate-400"
+        className="mr-3 h-5 w-5 shrink-0 text-stone-400"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -201,7 +201,7 @@ function Jobs() {
         placeholder="Location"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
-        className="w-full bg-transparent py-3.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
+        className="w-full bg-transparent py-3.5 text-sm text-stone-800 outline-none placeholder:text-stone-400"
       />
     </div>
 
@@ -209,7 +209,7 @@ function Jobs() {
     <button
       type="submit"
       disabled={loading}
-      className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+      className="flex items-center justify-center gap-2 rounded-xl bg-teal-600 px-7 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-teal-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
     >
       {loading ? (
         <>
@@ -248,14 +248,14 @@ function Jobs() {
 
           <div className="mb-6 flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-2xl font-bold text-stone-900">
                 {jobs.length > 0
                   ? `${jobs.length} Jobs Found`
                   : "Job Results"}
               </h2>
 
               {jobs.length > 0 && (
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-stone-500">
                   Showing opportunities.
                 </p>
               )}
@@ -269,21 +269,21 @@ function Jobs() {
           )}
 
           {loading && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center">
-              <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
-              <p className="mt-4 text-sm text-slate-500">
+            <div className="rounded-2xl border border-stone-200 bg-white p-10 text-center">
+              <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-stone-200 border-t-teal-600" />
+              <p className="mt-4 text-sm text-stone-500">
                 Loading jobs...
               </p>
             </div>
           )}
 
           {!loading && !error && jobs.length === 0 && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center">
-              <h3 className="text-lg font-semibold text-slate-900">
+            <div className="rounded-2xl border border-stone-200 bg-white p-12 text-center">
+              <h3 className="text-lg font-semibold text-stone-900">
                 Search for jobs
               </h3>
 
-              <p className="mt-2 text-sm text-slate-500">
+              <p className="mt-2 text-sm text-stone-500">
                 Enter a keyword and location to find opportunities.
               </p>
             </div>
@@ -299,16 +299,16 @@ function Jobs() {
                 return (
                   <div
                     key={job.id}
-                    className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                    className="flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition duration-200 hover:-transtone-y-1 hover:border-teal-200 hover:shadow-md"
                   >
 
                     {/* Top */}
                     <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-lg font-extrabold text-blue-600">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-50 text-lg font-extrabold text-teal-600">
                         {job.company?.display_name?.charAt(0) || "J"}
                       </div>
 
-                      {/* <span className="rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-500">
+                      {/* <span className="rounded-md bg-stone-100 px-2.5 py-1 text-[11px] font-semibold text-stone-500">
                         Adzuna
                       </span> */}
                     </div>
@@ -316,22 +316,22 @@ function Jobs() {
                     {/* Job info */}
                     <div className="mt-5 flex-1">
 
-                      <h3 className="text-lg font-bold leading-6 text-slate-900">
+                      <h3 className="text-lg font-bold leading-6 text-stone-900">
                         {job.title}
                       </h3>
 
-                      <p className="mt-2 text-sm font-semibold text-slate-700">
+                      <p className="mt-2 text-sm font-semibold text-stone-700">
                         {job.company?.display_name ||
                           "Company not disclosed"}
                       </p>
 
-                      <p className="mt-2 text-sm text-slate-500">
+                      <p className="mt-2 text-sm text-stone-500">
                         📍{" "}
                         {job.location?.display_name ||
                           "Location not disclosed"}
                       </p>
 
-                      <p className="mt-3 font-bold text-blue-600">
+                      <p className="mt-3 font-bold text-teal-600">
                         {job.salary_min
                           ? `₹${Math.round(
                               job.salary_min
@@ -347,8 +347,8 @@ function Jobs() {
                         onClick={() => toggleSaveJob(job)}
                         className={`flex-1 rounded-lg border px-3 py-2.5 text-sm font-semibold transition ${
                           isSaved
-                            ? "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100"
-                            : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                            ? "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100"
+                            : "border-stone-300 bg-white text-stone-700 hover:bg-stone-50"
                         }`}
                       >
                         {isSaved ? "♥ Saved" : "♡ Save"}
@@ -357,7 +357,7 @@ function Jobs() {
                       <Link
                         to={`/jobs/${job.id}`}
                         state={{ job }}
-                        className="flex-1 rounded-lg bg-blue-600 px-3 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-blue-700"
+                        className="flex-1 rounded-lg bg-teal-600 px-3 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-teal-700"
                       >
                         View Details
                       </Link>
@@ -380,19 +380,19 @@ function Jobs() {
 )}
 
 {!loading && !error && totalJobs > 0 && (
-  <div className="mt-10 flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+  <div className="mt-10 flex flex-col gap-4 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
 
-    <p className="text-sm text-slate-500">
+    <p className="text-sm text-stone-500">
       Showing{" "}
-      <span className="font-semibold text-slate-700">
+      <span className="font-semibold text-stone-700">
         {(page - 1) * JOBS_PER_PAGE + 1}
       </span>
       {" - "}
-      <span className="font-semibold text-slate-700">
+      <span className="font-semibold text-stone-700">
         {Math.min(page * JOBS_PER_PAGE, totalJobs)}
       </span>
       {" of "}
-      <span className="font-semibold text-slate-700">
+      <span className="font-semibold text-stone-700">
         {totalJobs}
       </span>{" "}
       jobs
@@ -402,20 +402,20 @@ function Jobs() {
     <button
   onClick={(e) => searchJobs(e, page - 1)}
   disabled={page === 1 || loading}
-  className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 disabled:opacity-40"
+  className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-stone-700 disabled:opacity-40"
 >
   ← Previous
 </button>
       
 
-      <span className="flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+      <span className="flex items-center rounded-lg bg-stone-100 px-4 py-2 text-sm font-semibold text-stone-700">
         Page {page} of {totalPages}
       </span>
 
       <button
   onClick={(e) => searchJobs(e, page + 1)}
   disabled={page === totalPages || loading}
-  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40"
+  className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40"
 >
   Next →
 </button>

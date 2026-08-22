@@ -161,7 +161,7 @@ function SavedJobs() {
           {savedJobs.map((job) => (
             <div
               key={job.id}
-              className="flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-teal-300"
+              className="flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 transition hover:-transtone-y-0.5 hover:border-teal-300"
             >
               <div>
                 <h2 className="text-lg font-bold leading-6 text-stone-900">
@@ -193,7 +193,7 @@ function SavedJobs() {
                 <Link
                           to={`/jobs/${job.external_job_id}`}
                           state={{ job }}
-                          className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-blue-700"
+                          className="flex-1 rounded-lg bg-teal-600 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-teal-700"
                         >
                           View Details
                         </Link>
@@ -236,7 +236,7 @@ function SavedJobs() {
                     onClick={() => setPage(pageNumber)}
                     className={`h-9 w-9 rounded-lg text-sm font-semibold ${
                       page === pageNumber
-                        ? "bg-blue-500 text-white"
+                        ? "bg-teal-500 text-white"
                         : "border border-stone-300 bg-white text-stone-700 hover:bg-stone-50"
                     }`}
                   >

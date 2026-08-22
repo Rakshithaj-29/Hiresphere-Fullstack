@@ -47,7 +47,7 @@ function Applications() {
   const getStatusClass = (status) => {
     switch (status) {
       case "Applied":
-        return "bg-blue-50 text-blue-700";
+        return "bg-teal-50 text-teal-700";
       case "Under Review":
         return "bg-yellow-50 text-yellow-700";
       case "Shortlisted":
@@ -57,32 +57,32 @@ function Applications() {
       case "Rejected":
         return "bg-red-50 text-red-700";
       default:
-        return "bg-slate-50 text-slate-700";
+        return "bg-stone-50 text-stone-700";
     }
   };
 
   if (loading) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
-        <p className="text-slate-500">Loading applications...</p>
+        <p className="text-stone-500">Loading applications...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-10">
+    <div className="min-h-screen bg-stone-50 px-4 py-10">
       <div className="mx-auto max-w-6xl">
 
         <div className="mb-8">
-          <p className="text-xs font-bold tracking-[0.2em] text-blue-600">
+          <p className="text-xs font-bold tracking-[0.2em] text-teal-600">
             CANDIDATE DASHBOARD
           </p>
 
-         <h1 className="mt-2 text-3xl font-bold text-slate-900">
+         <h1 className="mt-2 text-3xl font-bold text-stone-900">
                 My Applications
               </h1>
 
-              <p className="mt-2 text-slate-500">
+              <p className="mt-2 text-stone-500">
                 {applications.length} application
                 {applications.length !== 1 ? "s" : ""}
               </p>
@@ -95,18 +95,18 @@ function Applications() {
         )}
 
         {!error && applications.length === 0 && (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center">
-            <h2 className="text-xl font-semibold text-slate-900">
+          <div className="rounded-2xl border border-stone-200 bg-white p-10 text-center">
+            <h2 className="text-xl font-semibold text-stone-900">
               No applications yet
             </h2>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 text-stone-500">
               Start exploring jobs and submit your first application.
             </p>
 
             <Link
               to="/jobs"
-              className="mt-6 inline-block rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+              className="mt-6 inline-block rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700"
             >
               Explore Jobs
             </Link>
@@ -117,19 +117,19 @@ function Applications() {
   {applications.map((application) => (
     <div
       key={application.id}
-      className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+      className="flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition hover:-transtone-y-1 hover:border-teal-200 hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold leading-6 text-slate-900">
+          <h2 className="text-lg font-bold leading-6 text-stone-900">
             {application.job_title}
           </h2>
 
-          <p className="mt-2 text-sm font-semibold text-slate-700">
+          <p className="mt-2 text-sm font-semibold text-stone-700">
             {application.company_name || "Company not disclosed"}
           </p>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-stone-500">
             📍 {application.job_location || "Location not disclosed"}
           </p>
         </div>
@@ -143,31 +143,31 @@ function Applications() {
         </span>
       </div>
 
-      <div className="mt-6 space-y-4 border-t border-slate-100 pt-5">
+      <div className="mt-6 space-y-4 border-t border-stone-100 pt-5">
 
         <div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-stone-400">
             Qualification
           </p>
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-stone-700">
             {application.qualification}
           </p>
         </div>
 
         <div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-stone-400">
             Experience
           </p>
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-stone-700">
             {application.experience_years || 0} years
           </p>
         </div>
 
         <div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-stone-400">
             Applied On
           </p>
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-stone-700">
             {new Date(application.applied_at).toLocaleDateString()}
           </p>
         </div>
@@ -175,12 +175,12 @@ function Applications() {
       </div>
 
       <div className="mt-auto pt-6">
-        <div className="rounded-lg bg-slate-50 px-3 py-2">
-          <p className="text-xs text-slate-400">
+        <div className="rounded-lg bg-stone-50 px-3 py-2">
+          <p className="text-xs text-stone-400">
             Resume
           </p>
 
-          <p className="mt-1 truncate text-sm font-semibold text-slate-700">
+          <p className="mt-1 truncate text-sm font-semibold text-stone-700">
             {application.resume_filename}
           </p>
         </div>

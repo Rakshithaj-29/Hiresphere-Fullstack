@@ -35,15 +35,15 @@ function Apply() {
 
   if (!job) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-stone-50 px-4">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-900">
+          <h2 className="text-2xl font-bold text-stone-900">
             Job information is not available
           </h2>
 
           <Link
             to="/jobs"
-            className="mt-4 inline-block font-medium text-blue-600 hover:text-blue-700"
+            className="mt-4 inline-block font-medium text-teal-600 hover:text-teal-700"
           >
             ← Back to Jobs
           </Link>
@@ -198,38 +198,38 @@ function Apply() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+    "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100";
 
   const readOnlyClass =
-    "w-full rounded-lg border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-500 outline-none";
+    "w-full rounded-lg border border-stone-200 bg-stone-100 px-4 py-3 text-sm text-stone-500 outline-none";
 
   const labelClass =
-    "mb-2 block text-sm font-semibold text-slate-700";
+    "mb-2 block text-sm font-semibold text-stone-700";
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-stone-50 px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
 
         {/* Back */}
         <Link
           to={`/jobs/${job.id}`}
           state={{ job }}
-          className="text-sm font-medium text-slate-500 transition hover:text-blue-600"
+          className="text-sm font-medium text-stone-500 transition hover:text-teal-600"
         >
           ← Back to Job
         </Link>
 
         {/* Header */}
         <div className="mt-8 mb-8">
-          <p className="text-xs font-bold tracking-[0.2em] text-blue-600">
+          <p className="text-xs font-bold tracking-[0.2em] text-teal-600">
             APPLICATION
           </p>
 
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
             Apply for {job.title}
           </h1>
 
-          <p className="mt-3 text-slate-500">
+          <p className="mt-3 text-stone-500">
             {job.company?.display_name || "Company not disclosed"}
             <span className="mx-2">•</span>
             {job.location?.display_name || "Location not disclosed"}
@@ -251,16 +251,16 @@ function Apply() {
 
         <form
   onSubmit={handleSubmit}
-  className="max-h-[75vh] overflow-y-auto overflow-x-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+  className="max-h-[75vh] overflow-y-auto overflow-x-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
 >
           {/* Job Information */}
-          <section className="border-b border-slate-200 p-6 sm:p-8">
+          <section className="border-b border-stone-200 p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Job Information
               </h2>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-stone-500">
                 These details come from the selected job listing.
               </p>
             </div>
@@ -305,9 +305,9 @@ function Apply() {
             </div>
           </section>
 
-          <section className="border-b border-slate-200 p-6 sm:p-8">
+          <section className="border-b border-stone-200 p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Personal Details
               </h2>
             </div>
@@ -355,9 +355,9 @@ function Apply() {
 </section>
 
           {/* Education */}
-          <section className="border-b border-slate-200 p-6 sm:p-8">
+          <section className="border-b border-stone-200 p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Education
               </h2>
             </div>
@@ -421,9 +421,9 @@ function Apply() {
           </section>
 
           {/* Professional Information */}
-          <section className="border-b border-slate-200 p-6 sm:p-8">
+          <section className="border-b border-stone-200 p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Professional Information
               </h2>
             </div>
@@ -495,9 +495,9 @@ function Apply() {
           </section>
 
           {/* Skills */}
-          <section className="border-b border-slate-200 p-6 sm:p-8">
+          <section className="border-b border-stone-200 p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Skills & Preferences
               </h2>
             </div>
@@ -567,13 +567,13 @@ function Apply() {
           </section>
 
           {/* Resume */}
-          <section className="border-b border-slate-200 p-6 sm:p-8">
+          <section className="border-b border-stone-200 p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Resume
               </h2>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-stone-500">
                 Upload your latest resume.
               </p>
             </div>
@@ -588,16 +588,16 @@ function Apply() {
                 type="file"
                 accept=".pdf,.doc,.docx"
                 onChange={handleResumeChange}
-                className="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 file:mr-4 file:border-0 file:bg-blue-50 file:px-4 file:py-3 file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+                className="block w-full cursor-pointer rounded-lg border border-stone-300 bg-white text-sm text-stone-600 file:mr-4 file:border-0 file:bg-teal-50 file:px-4 file:py-3 file:font-semibold file:text-teal-700 hover:file:bg-teal-100"
               />
 
               {resume && (
-                <p className="mt-3 text-sm font-medium text-blue-600">
+                <p className="mt-3 text-sm font-medium text-teal-600">
                   Selected: {resume.name}
                 </p>
               )}
 
-              <p className="mt-2 text-xs text-slate-400">
+              <p className="mt-2 text-xs text-stone-400">
                 PDF, DOC or DOCX • Maximum 5 MB
               </p>
             </div>
@@ -606,7 +606,7 @@ function Apply() {
           {/* Cover Letter */}
           <section className="p-6 sm:p-8">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-stone-900">
                 Cover Letter
               </h2>
             </div>
@@ -622,11 +622,11 @@ function Apply() {
           </section>
 
           {/* Submit */}
-          <div className="bg-slate-50 px-6 py-5 sm:px-8">
+          <div className="bg-stone-50 px-6 py-5 sm:px-8">
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-blue-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg bg-teal-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading
                 ? "Submitting Application..."

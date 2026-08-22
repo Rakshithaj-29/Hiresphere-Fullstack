@@ -52,26 +52,26 @@ function Login() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-slate-50 px-4 py-12">
+    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-stone-50 px-4 py-12">
       <div className="w-full max-w-md">
 
         {/* Header */}
         <div className="mb-8 text-center">
-          <p className="text-xs font-bold tracking-[0.2em] text-blue-600">
+          <p className="text-xs font-bold tracking-[0.2em] text-teal-600">
             WELCOME BACK
           </p>
 
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900">
             Sign in to HireSphere
           </h1>
 
-          <p className="mt-3 text-sm leading-6 text-slate-500">
+          <p className="mt-3 text-sm leading-6 text-stone-500">
             Find opportunities, manage applications and grow your career.
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
 
           {/* Error */}
           {error && (
@@ -86,7 +86,7 @@ function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-stone-700"
               >
                 Email
               </label>
@@ -99,7 +99,7 @@ function Login() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
               />
             </div>
 
@@ -107,7 +107,7 @@ function Login() {
             <div>
               <label
                 htmlFor="password"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-stone-700"
               >
                 Password
               </label>
@@ -120,7 +120,7 @@ function Login() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm text-stone-800 outline-none transition placeholder:text-stone-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
               />
             </div>
 
@@ -128,18 +128,18 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-blue-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg bg-teal-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? "Signing In..." : "Sign In"}
             </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-6 text-center text-sm text-slate-500">
+          <div className="mt-6 text-center text-sm text-stone-500">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="font-semibold text-blue-600 hover:text-blue-700"
+              className="font-semibold text-teal-600 hover:text-teal-700"
             >
               Create Account
             </Link>

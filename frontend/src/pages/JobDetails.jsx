@@ -43,15 +43,15 @@ function JobDetails() {
 
   if (!job) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center bg-slate-50 px-4">
+      <div className="flex min-h-[70vh] items-center justify-center bg-stone-50 px-4">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-900">
+          <h2 className="text-2xl font-bold text-stone-900">
             Job details not available
           </h2>
 
           <Link
             to="/jobs"
-            className="mt-4 inline-block rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+            className="mt-4 inline-block rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700"
           >
             Back to Jobs
           </Link>
@@ -146,16 +146,16 @@ const jobTitle =
 
   
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-stone-50">
 
       {/* Header */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-slate-50 px-4 py-10 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-teal-50 via-white to-stone-50 px-4 py-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
 
           {/* Back */}
           <Link
             to="/jobs"
-            className="inline-flex items-center text-sm font-medium text-slate-500 transition hover:text-blue-600"
+            className="inline-flex items-center text-sm font-medium text-stone-500 transition hover:text-teal-600"
           >
             ← Back to Jobs
           </Link>
@@ -165,24 +165,24 @@ const jobTitle =
             {/* Main job info */}
             <div className="flex gap-5">
 
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-2xl font-extrabold text-blue-600">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-teal-100 text-2xl font-extrabold text-teal-600">
                 {companyName.charAt(0)}
               </div>
 
               <div>
-                {/* <span className="inline-flex rounded-md bg-blue-100 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-blue-700">
+                {/* <span className="inline-flex rounded-md bg-teal-100 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-teal-700">
                   Adzuna Listing
                 </span> */}
 
-                <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
                   {job.title}
                 </h1>
 
-                <p className="mt-2 text-base font-semibold text-slate-700">
+                <p className="mt-2 text-base font-semibold text-stone-700">
                   {companyName}
                 </p>
 
-                <p className="mt-2 text-sm text-slate-500">
+                <p className="mt-2 text-sm text-stone-500">
                   📍 {jobLocation}
                 </p>
               </div>
@@ -196,8 +196,8 @@ const jobTitle =
                 disabled={loadingSave}
                 className={`rounded-xl border px-5 py-3 text-sm font-bold transition ${
                   isSaved
-                    ? "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100"
-                    : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100"
+                    : "border-stone-300 bg-white text-stone-700 hover:bg-stone-50"
                 } disabled:cursor-not-allowed disabled:opacity-60`}
               >
                 {loadingSave
@@ -210,7 +210,7 @@ const jobTitle =
               <Link
                 to="/apply"
                 state={{ job }}
-                className="rounded-xl bg-blue-600 px-6 py-3 text-center text-sm font-bold text-white transition hover:bg-blue-700"
+                className="rounded-xl bg-teal-600 px-6 py-3 text-center text-sm font-bold text-white transition hover:bg-teal-700"
               >
                 Apply Now
               </Link>
@@ -225,14 +225,14 @@ const jobTitle =
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1fr_320px]">
 
           {/* Description */}
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
 
-            <h2 className="text-xl font-bold text-slate-900">
+            <h2 className="text-xl font-bold text-stone-900">
               Job Description
             </h2>
 
             <div
-    className="prose prose-slate mt-6 max-w-none text-sm leading-7 text-slate-600"
+    className="prose prose-slate mt-6 max-w-none text-sm leading-7 text-stone-600"
     dangerouslySetInnerHTML={{
         __html:
             description ||
@@ -243,50 +243,50 @@ const jobTitle =
           </section>
 
           {/* Summary */}
-          <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <aside className="h-fit rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
 
-            <h2 className="text-xl font-bold text-slate-900">
+            <h2 className="text-xl font-bold text-stone-900">
               Job Summary
             </h2>
 
-            <div className="mt-5 divide-y divide-slate-100">
+            <div className="mt-5 divide-y divide-stone-100">
 
               <div className="py-4">
-                <p className="text-xs font-medium text-slate-400">
+                <p className="text-xs font-medium text-stone-400">
                   Salary
                 </p>
 
-                <p className="mt-1 text-sm font-semibold text-slate-800">
+                <p className="mt-1 text-sm font-semibold text-stone-800">
                   {salary}
                 </p>
               </div>
 
               <div className="py-4">
-                <p className="text-xs font-medium text-slate-400">
+                <p className="text-xs font-medium text-stone-400">
                   Location
                 </p>
 
-                <p className="mt-1 text-sm font-semibold text-slate-800">
+                <p className="mt-1 text-sm font-semibold text-stone-800">
                   {jobLocation}
                 </p>
               </div>
 
               <div className="py-4">
-                <p className="text-xs font-medium text-slate-400">
+                <p className="text-xs font-medium text-stone-400">
                   Company
                 </p>
 
-                <p className="mt-1 text-sm font-semibold text-slate-800">
+                <p className="mt-1 text-sm font-semibold text-stone-800">
                   {companyName}
                 </p>
               </div>
 
               {/* <div className="py-4">
-                <p className="text-xs font-medium text-slate-400">
+                <p className="text-xs font-medium text-stone-400">
                   Source
                 </p>
 
-                <p className="mt-1 text-sm font-semibold text-blue-600">
+                <p className="mt-1 text-sm font-semibold text-teal-600">
                   Adzuna
                 </p>
               </div> */}
@@ -296,7 +296,7 @@ const jobTitle =
             <Link
               to="/apply"
               state={{ job }}
-              className="mt-5 block rounded-xl bg-blue-600 px-5 py-3 text-center text-sm font-bold text-white transition hover:bg-blue-700"
+              className="mt-5 block rounded-xl bg-teal-600 px-5 py-3 text-center text-sm font-bold text-white transition hover:bg-teal-700"
             >
               Apply Now
             </Link>
