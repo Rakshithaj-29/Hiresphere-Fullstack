@@ -1,16 +1,71 @@
-# React + Vite
+# HireSphere
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+HireSphere is a full-stack job portal. Candidates can search jobs (via the
+Adzuna API), save jobs, apply, and track their applications. Admins have a
+separate dashboard to manage applications.
 
-Currently, two official plugins are available:
+- **Frontend:** React 19 + Vite + Tailwind CSS v4
+- **Backend:** Node.js + Express 5
+- **Database:** PostgreSQL
+- **Auth:** JWT (JSON Web Tokens) + bcrypt password hashing
+- **External API:** [Adzuna](https://developer.adzuna.com/) for live job
+  listings
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Project structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+Hiresphere/
+├── backend/
+│   ├── config/
+│   │   └── db.js                 # PostgreSQL connection pool
+│   ├── middleware/
+│   │   ├── authMiddleware.js      # Verifies JWT, attaches req.user
+│   │   └── adminMiddleware.js     # Restricts routes to admin users
+│   ├── routes/
+│   │   ├── authRoutes.js          # /api/auth  (register, login)
+│   │   ├── jobRoutes.js           # /api/jobs  (Adzuna job search)
+│   │   ├── applicationRoutes.js   # /api/applications
+│   │   ├── savedJobRoutes.js      # /api/saved-jobs
+│   │   └── adminRoutes.js         # /api/admin
+│   ├── server.js                  # Express app entry point
+│   └── package.json
+│
+└── frontend/
+    ├── src/
+    │   ├── components/
+    │   │   ├── Navbar.jsx
+    │   │   ├── Footer.jsx
+    │   │   ├── ProtectedRoute.jsx  # Redirects to /login if not authenticated
+    │   │   └── AdminRoute.jsx      # Redirects if user isn't an admin
+    │   ├── context/
+    │   │   └── AuthContext.jsx     # Auth state (user, login, logout)
+    │   ├── pages/
+    │   │   ├── Home.jsx
+    │   │   ├── Login.jsx
+    │   │   ├── Register.jsx
+    │   │   ├── Jobs.jsx
+    │   │   ├── JobDetails.jsx
+    │   │   ├── Apply.jsx
+    │   │   ├── Applications.jsx
+    │   │   ├── SavedJobs.jsx
+    │   │   └── AdminDashboard.jsx
+    │   ├── App.jsx                 # Routes
+    │   └── main.jsx
+    └── package.json
+```
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- Email/password registration and login (JWT-based sessions)
+- Live job search via the Adzuna API, with location and keyword filters
+- Save/unsave jobs, with paginated + searchable "Saved jobs" page
+- Apply to jobs and track application status
+- Admin dashboard (role-based) for managing applications
+- Responsive UI built with Tailwind CSS v4, deep teal + warm gray theme
+
+---
+
