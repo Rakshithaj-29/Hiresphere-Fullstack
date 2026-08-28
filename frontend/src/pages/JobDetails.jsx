@@ -1,6 +1,8 @@
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function JobDetails() {
   const location = useLocation();
@@ -19,7 +21,7 @@ function JobDetails() {
 
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/saved-jobs",
+          `${API_URL}/api/saved-jobs`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -108,7 +110,7 @@ const jobTitle =
     try {
       if (isSaved) {
         await axios.delete(
-          `http://localhost:5000/api/saved-jobs/${job.id}`,
+          `${API_URL}/api/saved-jobs/${job.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -119,7 +121,7 @@ const jobTitle =
         setIsSaved(false);
       } else {
         await axios.post(
-          "http://localhost:5000/api/saved-jobs",
+          `${API_URL}/api/saved-jobs`,
           {
             external_job_id: String(job.id),
             job_title: job.title,

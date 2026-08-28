@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function Jobs() {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ function Jobs() {
 
   try {
     const response = await axios.get(
-      "http://localhost:5000/api/jobs",
+      `${API_URL}/api/jobs`,
       {
         params: {
           keyword: keyword.trim(),
@@ -79,7 +81,7 @@ function Jobs() {
     try {
       if (isSaved) {
         await axios.delete(
-          `http://localhost:5000/api/saved-jobs/${jobId}`,
+          `${API_URL}/api/saved-jobs/${jobId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -94,7 +96,7 @@ function Jobs() {
         });
       } else {
         await axios.post(
-          "http://localhost:5000/api/saved-jobs",
+          `${API_URL}/api/saved-jobs`,
           {
             external_job_id: jobId,
             job_title: job.title,

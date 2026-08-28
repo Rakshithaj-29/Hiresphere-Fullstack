@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const [totalApplications, setTotalApplications] = useState(0);
         setError("");
 
         const response = await axios.get(
-          "http://localhost:5000/api/admin/applications",
+          `${API_URL}/api/admin/applications`,
           {
             params: {
               search: debouncedSearch.trim(),
@@ -96,7 +98,7 @@ const [totalApplications, setTotalApplications] = useState(0);
 
   try {
     await axios.patch(
-      `http://localhost:5000/api/admin/applications/${applicationId}/status`,
+      `${API_URL}/api/admin/applications/${applicationId}/status`,
       {
         status: newStatus,
       },
@@ -129,7 +131,7 @@ const viewResume = async (applicationId) => {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      `http://localhost:5000/api/admin/applications/${applicationId}/resume`,
+      `${API_URL}/api/admin/applications/${applicationId}/resume`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -172,7 +174,7 @@ const removeApplication = async (applicationId) => {
 
   try {
     await axios.delete(
-      `http://localhost:5000/api/admin/applications/${applicationId}`,
+      `${API_URL}/api/admin/applications/${applicationId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

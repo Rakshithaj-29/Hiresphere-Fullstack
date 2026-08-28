@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function SavedJobs() {
   const [savedJobs, setSavedJobs] = useState([]);
@@ -37,7 +39,7 @@ function SavedJobs() {
         setLoading(true);
         setError("");
         const response = await axios.get(
-          "http://localhost:5000/api/saved-jobs",
+          `${API_URL}/api/saved-jobs`,
           {
             params: {
               search: debouncedSearch.trim(),
@@ -73,7 +75,7 @@ function SavedJobs() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/saved-jobs/${jobId}`,
+        `${API_URL}/api/saved-jobs/${jobId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

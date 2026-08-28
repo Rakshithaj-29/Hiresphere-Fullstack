@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const categories = [
   { icon: "ti-code", title: "Technology", desc: "Software, web & IT" },
@@ -48,7 +50,7 @@ function HomeLoginCard() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${API_URL}/api/auth/login`,
         formData
       );
 

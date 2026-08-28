@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function Apply() {
   const location = useLocation();
@@ -152,7 +154,7 @@ function Apply() {
       data.append("resume", resume);
 
       const response = await axios.post(
-        "http://localhost:5000/api/applications",
+        `${API_URL}/api/applications`,
         data,
         {
           headers: {

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function Applications() {
   const [applications, setApplications] = useState([]);
@@ -19,7 +21,7 @@ function Applications() {
         }
 
         const response = await axios.get(
-          "http://localhost:5000/api/applications/my",
+          `${API_URL}/api/applications/my`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
