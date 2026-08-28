@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt=require("jsonwebtoken")
 const pool = require("../config/db");
+
+console.log("AUTH ROUTES LOADED");
 const authMiddleware=require("../middleware/authMiddleware")
 const router = express.Router();
 
@@ -56,7 +58,9 @@ router.post("/register", async (req, res) => {
 
 // Login
 router.post("/login", async (req, res) => {
+    console.log("login route hit");
     try {
+        console.log("login body",req.body);
         const { email, password } = req.body;
 
         // 1. Check required fields
@@ -79,13 +83,21 @@ router.post("/login", async (req, res) => {
         }
 
         const user = result.rows[0];
+        console.log("User found:", {
+    id: user.id,
+    email: user.email,
+    hasPassword: !!user.password,
+    passwordPrefix: user.password
+        ? user.password.substring(0, 4)
+        : null
+});
 
         // 3. Compare password
         const passwordMatch = await bcrypt.compare(
             password,
             user.password
         );
-
+console.log("Password match",passwordMatch);
         if (!passwordMatch) {
             return res.status(401).json({
                 message: "Invalid email or password"

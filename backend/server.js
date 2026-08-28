@@ -11,13 +11,18 @@ const savedJobRoutes=require('./routes/savedJobRoutes');
 const adminRoutes=require('./routes/adminRoutes');
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+    console.log("REQUEST:", req.method, req.originalUrl);
+    next();
+});
+
 app.use("/api/auth",authRoutes);
 app.use("/api/jobs",jobRoutes)
 app.use("/api/applications",applicationRoutes);
 app.use("/api/saved-jobs",savedJobRoutes);
 app.use("/api/admin",adminRoutes);
 
-const PORT=5000;
+const PORT=process.env.PORT||5000;
 app.get("/",(req,res)=>{
     res.send('Hiresphere backend is running');
 });
@@ -35,6 +40,6 @@ app.get("/test-db", async (req, res) => {
         });
     }
 });
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
 });

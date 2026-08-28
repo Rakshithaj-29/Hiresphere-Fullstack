@@ -2,6 +2,9 @@ node_modules/
 
 #Envioronment variables
 .env
+!.env.example
+.env.*
+dist/
 
 #Logs
 *.log
