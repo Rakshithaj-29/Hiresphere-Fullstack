@@ -13,6 +13,8 @@ separate dashboard to manage applications.
 
 ---
 
+## Live Demo
+hiresphere-34972633g-hiresphere.vercel.app
 ## Project structure
 
 ```
